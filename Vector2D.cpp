@@ -42,3 +42,11 @@ Vector2D::Vector2D(float x, float y) {
 Vector2D Vector2D::operator*(const float &num) const {
     return Vector2D({this->x * num, this->y * num});
 }
+
+float Vector2D::getX() const {
+    return x;
+}
+
+float Vector2D::getY() const {
+    return y;
+}

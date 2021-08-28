@@ -7,10 +7,12 @@
 
 #include <opencl-c-base.h>
 #include <list>
-#include "Vector2D.h"
+#include "../Vector2D.h"
+#include "WallManager.h"
 
 class BulletManager {
 public:
+    BulletManager(std::shared_ptr<WallManager> wallManager);
     /*
      * void Update (float time), where time – global update time in seconds.
      * This method calculates bullet movement in given time, and in case of collision with the wall,
@@ -37,6 +39,8 @@ private:
     };
 
     std::list<Bullet> bulletList;
+
+    std::shared_ptr<WallManager> m_wallManager;
 };
 
 

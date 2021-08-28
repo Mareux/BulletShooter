@@ -20,6 +20,9 @@ public:
     float vectorLength() const;
     Vector2D normalize() const;
 
+    float getX() const;
+    float getY() const;
+
 };
 
 
