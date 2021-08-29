@@ -16,6 +16,7 @@ public:
     void Move();
     bool isDead(float time) const;
     void collideWithWall(Wall &wall);
+    void collideWithWindowBorders(float width, float height);
 
     ~Bullet() ;
 

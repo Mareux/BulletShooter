@@ -17,6 +17,8 @@ void BulletManager::Update(float time) {
             for (auto &wall : wallList) {
                 bullet.collideWithWall(wall);
             }
+            bullet.collideWithWindowBorders(m_renderer->getWindowWidth(), m_renderer->getWindowHeight());
+            // later refactor to check if already collided with wall to not change direction for second time, probably add collider manager
             bullet.Draw(*m_renderer);
         }
         m_wallManager->deleteDeadWalls();

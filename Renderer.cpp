@@ -7,6 +7,11 @@
 void Renderer::init() {
     SDL_Init(SDL_INIT_EVERYTHING);
     SDL_GetDesktopDisplayMode(0, &displayMode);
+    windowWidth = (float)displayMode.w;
+    windowHeight = (float)displayMode.h;
+    halfWindowWidth = windowWidth / 2;
+    halfWindowHeight = windowHeight / 2;
+
     window = SDL_CreateWindow("Window", 0, 0, displayMode.w, displayMode.h, SDL_WINDOW_SHOWN);
     if (!window) {
         return;
@@ -26,12 +31,18 @@ void Renderer::update() {
 
 void Renderer::drawLine(Vector2D vec1, Vector2D vec2) {
     SDL_SetRenderDrawColor( renderer, 0xFF, 0x00, 0x00, 0xFF );
-    SDL_RenderDrawLineF(renderer, vec1.getX(), vec1.getY(), vec2.getX(), vec2.getY());
+    SDL_RenderDrawLineF(renderer,
+                        vec1.getX() - halfWindowWidth,
+                        vec1.getY() - halfWindowHeight,
+                        vec2.getX() - halfWindowWidth,
+                        vec2.getY() - halfWindowHeight);
 }
 
 void Renderer::drawPoint(Vector2D vec1) {
     SDL_SetRenderDrawColor( renderer, 0x00, 0x00, 0xFF, 0xFF );
-    SDL_RenderDrawPointF(renderer, vec1.getX(), vec1.getY());
+    SDL_RenderDrawPointF(renderer,
+                         vec1.getX() - halfWindowWidth,
+                         vec1.getY() - halfWindowHeight);
 
 }
 
@@ -43,4 +54,12 @@ void Renderer::clearScreen() {
 void Renderer::drawRect(Vector2D vec1, Vector2D vec2) {
     SDL_SetRenderDrawColor( renderer, 0x00, 0xFF, 0x00, 0xFF );
     //TODO: draw rect
+}
+
+float Renderer::getWindowWidth() const {
+    return windowWidth;
+}
+
+float Renderer::getWindowHeight() const {
+    return windowHeight;
 }

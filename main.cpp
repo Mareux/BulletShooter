@@ -2,11 +2,13 @@
 #include "GameManagers/WallManager.h"
 #include "GameManagers/BulletManager.h"
 #include "EventHandler.h"
-
+#include "Randomizer.h"
 
 int main() {
-    auto wallManager = std::make_shared<WallManager>();
     auto renderer = std::make_shared<Renderer>();
+    auto wallManager = std::make_shared<WallManager>(renderer);
+
+    wallManager->createWalls(20);
 
     auto bulletManager = std::make_unique<BulletManager>(wallManager, renderer);
     auto eventHandler = std::make_unique<EventHandler>();
@@ -17,7 +19,11 @@ int main() {
         running = false;
     });
     eventHandler->AddEvent(EventHandler::ON_MOUSE_DOWN, [&](){
-        bulletManager->Fire(EventHandler::getMousePos(), {0, 1}, 0.1f, SDL_GetTicks(), 100);
+        bulletManager->Fire(EventHandler::getMousePos(),
+                            { Randomizer::RandomBetweenTwoFloat(-2,1), Randomizer::RandomBetweenTwoFloat(-2, 1)},
+                            Randomizer::RandomBetweenTwoFloat(0, 3),
+                            (float)SDL_GetTicks(),
+                            100);
     });
 
     renderer->init();

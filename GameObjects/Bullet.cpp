@@ -37,3 +37,10 @@ void Bullet::collideWithWall(Wall &wall) {
     }
 }
 
+void Bullet::collideWithWindowBorders(float width, float height) {
+    if ((pos.getX() >= width || pos.getX() <= 0)
+        ||(pos.getY() >= height || pos.getY() <= 0)) {
+        dir = dir * -1;
+    }
+}
+

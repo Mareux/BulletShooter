@@ -17,6 +17,7 @@ public:
     bool getDeathState() const;
 
 private:
+
     Vector2D leftSide;
     Vector2D rightSide;
     bool isDead;

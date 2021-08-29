@@ -18,12 +18,18 @@ public:
     void drawLine(Vector2D vec1, Vector2D vec2);
     void drawRect(Vector2D vec1, Vector2D vec2);
     void drawPoint(Vector2D vec1);
+    float getWindowWidth() const;
+    float getWindowHeight() const;
 
 private:
     SDL_DisplayMode displayMode;
     SDL_Window* window;
     SDL_Renderer* renderer;
     SDL_Texture *texture;
+    float windowWidth;
+    float windowHeight;
+    float halfWindowWidth;
+    float halfWindowHeight;
 };
 
 
