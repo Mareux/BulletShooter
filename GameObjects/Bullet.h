@@ -6,12 +6,25 @@
 #define BULLETSHOOTER_BULLET_H
 
 
-#include "Figure.h"
+#include "../Renderer.h"
+#include "Wall.h"
 
-class Bullet : public Figure{
+class Bullet{
 public:
-    void Draw(const Renderer &renderer) override;
-    ~Bullet() override;
+    Bullet(Vector2D pos, Vector2D dir, float speed, float spawnTime, float lifetime);
+    void Draw(Renderer &renderer) ;
+    void Move();
+    bool isDead(float time) const;
+    void collideWithWall(Wall &wall);
+
+    ~Bullet() ;
+
+private:
+    Vector2D pos{};
+    Vector2D dir{};
+    float speed;
+    float spawnTime;
+    float lifetime;
 };
 
 

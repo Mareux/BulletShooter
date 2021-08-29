@@ -6,11 +6,20 @@
 #define BULLETSHOOTER_WALL_H
 
 
-#include "Figure.h"
+#include "../Renderer.h"
 
-class Wall : public Figure{
-    ~Wall() override;
-    void Draw(const Renderer &renderer) override = 0;
+class Wall  {
+public:
+    Wall(Vector2D point1, Vector2D point2);
+    ~Wall() ;
+    void Draw(Renderer &renderer) ;
+    bool IsHit(Vector2D pos);
+    bool getDeathState() const;
+
+private:
+    Vector2D leftSide;
+    Vector2D rightSide;
+    bool isDead;
 };
 
 

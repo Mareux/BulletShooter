@@ -16,6 +16,7 @@ public:
     void update();
     void clearScreen();
     void drawLine(Vector2D vec1, Vector2D vec2);
+    void drawRect(Vector2D vec1, Vector2D vec2);
     void drawPoint(Vector2D vec1);
 
 private:

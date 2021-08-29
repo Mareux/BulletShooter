@@ -9,6 +9,10 @@
 #include <list>
 #include "../Vector2D.h"
 #include "WallManager.h"
+#include "../GameObjects/Bullet.h"
+
+const int FRAMES_PER_SECOND = 60;
+const int FRAME_CONTROL = (1000 / FRAMES_PER_SECOND);
 
 class BulletManager {
 public:
@@ -30,17 +34,16 @@ public:
     void Fire(Vector2D pos, Vector2D dir, float speed, float time, float life_time);
 
 private:
-    struct Bullet {
-        Vector2D pos;
-        Vector2D dir;
-        float speed;
-        float time;
-        float life_time;
-    };
+//    struct Bullet {
+//        float time;
+//        float life_time;
+//    };
 
     std::list<Bullet> bulletList;
 
     std::shared_ptr<WallManager> m_wallManager;
+
+    float prevTime;
 };
 
 

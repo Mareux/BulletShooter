@@ -39,3 +39,8 @@ void Renderer::clearScreen() {
     SDL_SetRenderDrawColor( renderer, 0xFF, 0xFF, 0xFF, 0xFF );
     SDL_RenderClear( renderer );
 }
+
+void Renderer::drawRect(Vector2D vec1, Vector2D vec2) {
+    SDL_SetRenderDrawColor( renderer, 0x00, 0xFF, 0x00, 0xFF );
+    //TODO: draw rect
+}

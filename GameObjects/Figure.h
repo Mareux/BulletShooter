@@ -10,7 +10,7 @@
 
 class Figure {
     virtual ~Figure()= default;
-    virtual void Draw(const Renderer &renderer) = 0;
+    virtual void Draw(Renderer &renderer) = 0;
 };
 
 

@@ -6,8 +6,17 @@
 #define BULLETSHOOTER_WALLMANAGER_H
 
 
-class WallManager {
+#include <list>
+#include "../GameObjects/Wall.h"
 
+class WallManager {
+public:
+    void createWalls(int wallsNum);
+    std::list<Wall> getWallList();
+    void deleteDeadWalls();
+
+private:
+    std::list<Wall> wallList;
 };
 
 
