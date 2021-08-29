@@ -14,9 +14,13 @@ public:
     void createWalls(int wallsNum);
     std::list<Wall> getWallList();
     void deleteDeadWalls();
+    void Update();
+
+    WallManager(std::shared_ptr<Renderer> renderer);
 
 private:
     std::list<Wall> wallList;
+    std::shared_ptr<Renderer> m_renderer;
 };
 
 

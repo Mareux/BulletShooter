@@ -16,7 +16,9 @@ const int FRAME_CONTROL = (1000 / FRAMES_PER_SECOND);
 
 class BulletManager {
 public:
-    BulletManager(std::shared_ptr<WallManager> wallManager);
+    BulletManager();
+
+    BulletManager(const std::shared_ptr<WallManager> &wallManager, const std::shared_ptr<Renderer> &renderer);
     /*
      * void Update (float time), where time – global update time in seconds.
      * This method calculates bullet movement in given time, and in case of collision with the wall,
@@ -42,6 +44,7 @@ private:
     std::list<Bullet> bulletList;
 
     std::shared_ptr<WallManager> m_wallManager;
+    std::shared_ptr<Renderer> m_renderer;
 
     float prevTime;
 };

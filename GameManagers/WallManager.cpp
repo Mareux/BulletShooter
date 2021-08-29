@@ -19,3 +19,13 @@ void WallManager::deleteDeadWalls() {
         return wall.getDeathState();
     });
 }
+
+void WallManager::Update() {
+    for (auto &wall : wallList){
+        wall.Draw(*m_renderer);
+    }
+}
+
+WallManager::WallManager(std::shared_ptr<Renderer> renderer) : m_renderer(renderer){
+
+}
