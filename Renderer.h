@@ -11,8 +11,8 @@
 
 class Renderer {
 public:
-    void init();
-    void deinit();
+    Renderer();
+    ~Renderer();
     void update();
     void clearScreen();
     void drawLine(Vector2D vec1, Vector2D vec2);
@@ -22,10 +22,9 @@ public:
     float getWindowHeight() const;
 
 private:
-    SDL_DisplayMode displayMode;
+    SDL_DisplayMode displayMode{};
     SDL_Window* window;
     SDL_Renderer* renderer;
-    SDL_Texture *texture;
     float windowWidth;
     float windowHeight;
     float halfWindowWidth;

@@ -12,7 +12,7 @@
 class WallManager {
 public:
     void createWalls(int wallsNum);
-    std::list<Wall> getWallList();
+    std::list<Wall>& getWallList();
     void deleteDeadWalls();
     void Update();
 

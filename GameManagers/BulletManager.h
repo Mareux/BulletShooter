@@ -34,6 +34,7 @@ public:
      * This method adds bullet to manager for further updates.
      */
     void Fire(Vector2D pos, Vector2D dir, float speed, float time, float life_time);
+    //next step threads
 
 private:
 //    struct Bullet {

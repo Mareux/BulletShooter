@@ -4,27 +4,6 @@
 
 #include "Renderer.h"
 
-void Renderer::init() {
-    SDL_Init(SDL_INIT_EVERYTHING);
-    SDL_GetDesktopDisplayMode(0, &displayMode);
-    windowWidth = (float)displayMode.w;
-    windowHeight = (float)displayMode.h;
-    halfWindowWidth = windowWidth / 2;
-    halfWindowHeight = windowHeight / 2;
-
-    window = SDL_CreateWindow("Window", 0, 0, displayMode.w, displayMode.h, SDL_WINDOW_SHOWN);
-    if (!window) {
-        return;
-    }
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-}
-
-void Renderer::deinit() {
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    SDL_Quit();
-}
-
 void Renderer::update() {
     SDL_RenderPresent(renderer);
 }
@@ -32,17 +11,17 @@ void Renderer::update() {
 void Renderer::drawLine(Vector2D vec1, Vector2D vec2) {
     SDL_SetRenderDrawColor( renderer, 0xFF, 0x00, 0x00, 0xFF );
     SDL_RenderDrawLineF(renderer,
-                        vec1.getX() - halfWindowWidth,
-                        vec1.getY() - halfWindowHeight,
-                        vec2.getX() - halfWindowWidth,
-                        vec2.getY() - halfWindowHeight);
+                        vec1.getX() + halfWindowWidth,
+                        vec1.getY() + halfWindowHeight,
+                        vec2.getX() + halfWindowWidth,
+                        vec2.getY() + halfWindowHeight);
 }
 
 void Renderer::drawPoint(Vector2D vec1) {
     SDL_SetRenderDrawColor( renderer, 0x00, 0x00, 0xFF, 0xFF );
     SDL_RenderDrawPointF(renderer,
-                         vec1.getX() - halfWindowWidth,
-                         vec1.getY() - halfWindowHeight);
+                         vec1.getX() + halfWindowWidth,
+                         vec1.getY() + halfWindowHeight);
 
 }
 
@@ -62,4 +41,25 @@ float Renderer::getWindowWidth() const {
 
 float Renderer::getWindowHeight() const {
     return windowHeight;
+}
+
+Renderer::Renderer() {
+    SDL_Init(SDL_INIT_EVERYTHING);
+    SDL_GetDesktopDisplayMode(0, &displayMode);
+    windowWidth = (float)displayMode.w;
+    windowHeight = (float)displayMode.h;
+    halfWindowWidth = windowWidth / 2;
+    halfWindowHeight = windowHeight / 2;
+
+    window = SDL_CreateWindow("Window", 0, 0, displayMode.w, displayMode.h, SDL_WINDOW_SHOWN);
+    if (!window) {
+        return;
+    }
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+}
+
+Renderer::~Renderer() {
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
 }

@@ -11,13 +11,13 @@ void BulletManager::Update(float time) {
             return bullet.isDead(time);
         });
 
-        auto wallList = m_wallManager->getWallList();
+        auto& wallList = m_wallManager->getWallList();
         for (auto &bullet: bulletList) {
             bullet.Move();
             for (auto &wall : wallList) {
                 bullet.collideWithWall(wall);
             }
-            bullet.collideWithWindowBorders(m_renderer->getWindowWidth(), m_renderer->getWindowHeight());
+            bullet.collideWithWindowBorders(m_renderer->getWindowWidth() / 2, m_renderer->getWindowHeight() / 2);
             // later refactor to check if already collided with wall to not change direction for second time, probably add collider manager
             bullet.Draw(*m_renderer);
         }

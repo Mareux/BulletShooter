@@ -6,9 +6,10 @@
 
 int main() {
     auto renderer = std::make_shared<Renderer>();
+
     auto wallManager = std::make_shared<WallManager>(renderer);
 
-    wallManager->createWalls(20);
+    wallManager->createWalls(1000);
 
     auto bulletManager = std::make_unique<BulletManager>(wallManager, renderer);
     auto eventHandler = std::make_unique<EventHandler>();
@@ -19,20 +20,18 @@ int main() {
         running = false;
     });
     eventHandler->AddEvent(EventHandler::ON_MOUSE_DOWN, [&](){
-        bulletManager->Fire(EventHandler::getMousePos(),
+        bulletManager->Fire(EventHandler::getMousePos() - Vector2D{renderer->getWindowWidth() / 2, renderer->getWindowHeight() / 2},
                             { Randomizer::RandomBetweenTwoFloat(-2,1), Randomizer::RandomBetweenTwoFloat(-2, 1)},
-                            Randomizer::RandomBetweenTwoFloat(0, 3),
+                            Randomizer::RandomBetweenTwoFloat(1, 3),
                             (float)SDL_GetTicks(),
-                            100);
+                            10000);
     });
 
-    renderer->init();
     while (running){
         renderer->clearScreen();
         eventHandler->HandleEvents();
         bulletManager->Update(SDL_GetTicks());
         renderer->update();
     }
-    renderer->deinit();
     return 0;
 }

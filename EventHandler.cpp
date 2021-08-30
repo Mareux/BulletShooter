@@ -12,7 +12,8 @@ void EventHandler::HandleEvents() {
     SDL_Event e;
     while(SDL_PollEvent(&e)) {
         for(auto &event : eventMap){
-            if (e.type == event.first)
+            if (e.type == event.first
+            || e.key.keysym.scancode == (SDL_Scancode)event.first)
                 event.second();
         }
     }

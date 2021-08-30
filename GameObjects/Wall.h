@@ -18,8 +18,8 @@ public:
 
 private:
 
-    Vector2D leftSide;
-    Vector2D rightSide;
+    Vector2D point1;
+    Vector2D point2;
     bool isDead;
 };
 

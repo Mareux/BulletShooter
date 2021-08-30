@@ -10,19 +10,19 @@ Wall::~Wall() {
 }
 
 void Wall::Draw(Renderer &renderer) {
-    renderer.drawLine(leftSide, rightSide);
+    renderer.drawLine(point1, point2);
 }
 
-Wall::Wall(Vector2D point1, Vector2D point2) : leftSide(point1), rightSide(point2), isDead(false){
+Wall::Wall(Vector2D point1, Vector2D point2) : point1(point1), point2(point2), isDead(false){
     std::cout << "Wall with point1(" << point1.getX() << ", " << point1.getY() << ") and point2("
         << point2.getX() << ", " << point2.getY() << ") created\n";
 }
 
 bool Wall::IsHit(Vector2D pos) {
-    float dist1 = (leftSide - pos).vectorLength();
-    float dist2 = (rightSide - pos).vectorLength();
+    float dist1 = (point1 - pos).vectorLength();
+    float dist2 = (point2 - pos).vectorLength();
 
-    float lineLength = (leftSide - rightSide).vectorLength();
+    float lineLength = (point1 - point2).vectorLength();
 
     float buffer = 0.1f;
 

@@ -7,7 +7,6 @@
 
 
 #include <SDL_events.h>
-#include "SDL2-2.0.16/include/SDL_scancode.h"
 #include "Vector2D.h"
 #include <functional>
 #include <map>
@@ -16,7 +15,7 @@ class EventHandler {
 public:
 
     enum Event {
-        QUIT = SDL_SCANCODE_ESCAPE,
+        QUIT = SDL_SCANCODE_Q,
         ON_MOUSE_DOWN = SDL_MOUSEBUTTONDOWN
     };
 

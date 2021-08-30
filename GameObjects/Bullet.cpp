@@ -27,8 +27,8 @@ Bullet::Bullet(Vector2D pos, Vector2D dir, float speed, float spawnTime, float l
 
 bool Bullet::isDead(float time) const {
     if (spawnTime + lifetime >= time)
-        return true;
-    return false;
+        return false;
+    return true;
 }
 
 void Bullet::collideWithWall(Wall &wall) {
@@ -38,8 +38,8 @@ void Bullet::collideWithWall(Wall &wall) {
 }
 
 void Bullet::collideWithWindowBorders(float width, float height) {
-    if ((pos.getX() >= width || pos.getX() <= 0)
-        ||(pos.getY() >= height || pos.getY() <= 0)) {
+    if ((pos.getX() >= width || pos.getX() <= -width)
+        ||(pos.getY() >= height || pos.getY() <= -height)) {
         dir = dir * -1;
     }
 }
