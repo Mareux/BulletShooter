@@ -7,11 +7,12 @@
 
 #include <opencl-c-base.h>
 #include <list>
+#include <mutex>
 #include "../Vector2D.h"
 #include "WallManager.h"
 #include "../GameObjects/Bullet.h"
 
-const int FRAMES_PER_SECOND = 60;
+const int FRAMES_PER_SECOND = 120;
 const int FRAME_CONTROL = (1000 / FRAMES_PER_SECOND);
 
 class BulletManager {
@@ -42,6 +43,7 @@ private:
 //        float life_time;
 //    };
 
+    std::mutex bulletMutex;
     std::list<Bullet> bulletList;
 
     std::shared_ptr<WallManager> m_wallManager;
