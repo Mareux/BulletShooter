@@ -32,7 +32,7 @@ bool Bullet::isDead(float time) const {
 }
 
 void Bullet::collideWithWall(Wall &wall) {
-    if (wall.IsHit(pos)) {
+    if (wall.IsHit(pos, pos + dir * speed)) {
         dir = dir * -1;
     }
 }

@@ -40,7 +40,7 @@ int main() {
 
 void fireBullets(std::unique_ptr<BulletManager> &bulletManager, Vector2D &pos) {
     std::thread([=,&bulletManager]() {
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 1; i++) {
             Vector2D dir = {Randomizer::RandomBetweenTwoFloat(-2, 1), Randomizer::RandomBetweenTwoFloat(-2, 1)};
             auto speed = Randomizer::RandomBetweenTwoFloat(1, 3);
             auto time1 = (float) SDL_GetTicks();
@@ -49,7 +49,7 @@ void fireBullets(std::unique_ptr<BulletManager> &bulletManager, Vector2D &pos) {
                                 dir,
                                 speed,
                                 time1,
-                                1000);
+                                10000);
         }
     }).detach();
 }
