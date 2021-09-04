@@ -15,7 +15,7 @@ class EventHandler {
 public:
 
     enum Event {
-        QUIT = SDL_SCANCODE_Q,
+        QUIT = SDL_QUIT,
         ON_MOUSE_DOWN = SDL_MOUSEBUTTONDOWN
     };
 

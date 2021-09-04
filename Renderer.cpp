@@ -11,17 +11,17 @@ void Renderer::update() {
 void Renderer::drawLine(Vector2D vec1, Vector2D vec2) {
     SDL_SetRenderDrawColor( renderer, 0xFF, 0x00, 0x00, 0xFF );
     SDL_RenderDrawLineF(renderer,
-                        vec1.getX() + halfWindowWidth,
-                        vec1.getY() + halfWindowHeight,
-                        vec2.getX() + halfWindowWidth,
-                        vec2.getY() + halfWindowHeight);
+                        vec1.getX(),
+                        vec1.getY(),
+                        vec2.getX(),
+                        vec2.getY());
 }
 
 void Renderer::drawPoint(Vector2D vec1) {
     SDL_SetRenderDrawColor( renderer, 0x00, 0x00, 0xFF, 0xFF );
     SDL_RenderDrawPointF(renderer,
-                         vec1.getX() + halfWindowWidth,
-                         vec1.getY() + halfWindowHeight);
+                         vec1.getX(),
+                         vec1.getY());
 
 }
 

@@ -13,8 +13,14 @@ public:
     Wall(Vector2D point1, Vector2D point2);
     ~Wall() ;
     void Draw(Renderer &renderer) ;
-    bool IsHit(Vector2D pos1, Vector2D pos2);
     bool getDeathState() const;
+    void setDeathState(bool isHit);
+
+
+    Vector2D getPoint1();
+    Vector2D getPoint2();
+
+    bool operator<(const Wall &wall);
 
 private:
 

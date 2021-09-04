@@ -15,8 +15,14 @@ public:
     void Draw(Renderer &renderer) ;
     void Move();
     bool isDead(float time) const;
-    void collideWithWall(Wall &wall);
+    void collideWithWall(bool isHit);
     void collideWithWindowBorders(float width, float height);
+
+
+    Vector2D getPosition();
+    Vector2D getDirection();
+    float getSpeed();
+
 
     ~Bullet() ;
 

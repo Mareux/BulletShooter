@@ -11,6 +11,7 @@
 #include "../Vector2D.h"
 #include "WallManager.h"
 #include "../GameObjects/Bullet.h"
+#include "../Grid.h"
 
 const int FRAMES_PER_SECOND = 120;
 const int FRAME_CONTROL = (1000 / FRAMES_PER_SECOND);
@@ -19,7 +20,7 @@ class BulletManager {
 public:
     BulletManager();
 
-    BulletManager(const std::shared_ptr<WallManager> &wallManager, const std::shared_ptr<Renderer> &renderer);
+    BulletManager(const std::shared_ptr<Grid> &grid, const std::shared_ptr<Renderer> &renderer);
     /*
      * void Update (float time), where time – global update time in seconds.
      * This method calculates bullet movement in given time, and in case of collision with the wall,
@@ -46,7 +47,7 @@ private:
     std::mutex bulletMutex;
     std::list<Bullet> bulletList;
 
-    std::shared_ptr<WallManager> m_wallManager;
+    std::shared_ptr<Grid> m_grid;
     std::shared_ptr<Renderer> m_renderer;
 
     float prevTime;

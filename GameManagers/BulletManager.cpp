@@ -14,18 +14,19 @@ void BulletManager::Update(float time) {
         return bullet.isDead(time);
     });
 
-    auto &wallList = m_wallManager->getWallList();
+//    auto &wallList = m_wallManager->getWallList();
     for (auto &bullet: bulletList) {
-        for (auto &wall: wallList) {
-            bullet.collideWithWall(wall);
-        }
+//        for (auto &wall: wallList) {
+//            if (bullet.collideWithWall(wall))
+//                break;
+//        }
+        bullet.collideWithWall(m_grid->bulletInSectorCollided(bullet.getPosition(), bullet.getPosition() + bullet.getDirection() * bullet.getSpeed()));
         bullet.Move();
-        bullet.collideWithWindowBorders(m_renderer->getWindowWidth() / 2, m_renderer->getWindowHeight() / 2);
-        // later refactor to check if already collided with wall to not change direction for second time, probably add collider manager
+        bullet.collideWithWindowBorders(m_renderer->getWindowWidth(), m_renderer->getWindowHeight());
         bullet.Draw(*m_renderer);
     }
-    m_wallManager->deleteDeadWalls();
-    m_wallManager->Update();
+//    m_wallManager->deleteDeadWalls();
+//    m_wallManager->Update();
 
     bulletMutex.unlock();
 }
@@ -36,8 +37,8 @@ void BulletManager::Fire(Vector2D pos, Vector2D dir, float speed, float time, fl
     bulletMutex.unlock();
 }
 
-BulletManager::BulletManager(const std::shared_ptr<WallManager> &wallManager, const std::shared_ptr<Renderer> &renderer)
-        : m_wallManager(wallManager), m_renderer(renderer), prevTime(0) {
+BulletManager::BulletManager(const std::shared_ptr<Grid> &grid, const std::shared_ptr<Renderer> &renderer)
+        : m_grid(grid), m_renderer(renderer), prevTime(0) {
 
 }
 

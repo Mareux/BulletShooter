@@ -6,11 +6,33 @@
 #include "../Randomizer.h"
 
 void WallManager::createWalls(int wallsNum) {
+    float canvasWidth = m_renderer->getWindowWidth() - 1;
+    float canvasHeight = m_renderer->getWindowHeight() - 1;
+
     for (int i = 0; i < wallsNum; i++) {
-        wallList.emplace_back(Vector2D(Randomizer::RandomBetweenTwoFloat(-1000, 1000),
-                                       Randomizer::RandomBetweenTwoFloat(-1000, 1000)),
-                              Vector2D(Randomizer::RandomBetweenTwoFloat(-1000, 1000),
-                                       Randomizer::RandomBetweenTwoFloat(-1000, 1000)));//TODO:randomize
+        int randomInt = std::rand() % 4 + 1;
+        if (randomInt == 1) {
+            float x = Randomizer::RandomBetweenTwoFloat(0, canvasWidth);
+            float y1 = Randomizer::RandomBetweenTwoFloat(0, canvasHeight);
+            float y2 = Randomizer::RandomBetweenTwoFloat(0, canvasHeight);
+
+            wallList.emplace_back(Vector2D(x, y1), Vector2D(x, y2));
+        }
+        else if (randomInt == 2) {
+            float y = Randomizer::RandomBetweenTwoFloat(0, canvasHeight);
+            float x1 = Randomizer::RandomBetweenTwoFloat(0, canvasWidth);
+            float x2 = Randomizer::RandomBetweenTwoFloat(0, canvasWidth);
+
+            wallList.emplace_back(Vector2D(x1, y), Vector2D(x2, y));
+        }
+        else {
+            float y1 = Randomizer::RandomBetweenTwoFloat(0, canvasHeight);
+            float y2 = Randomizer::RandomBetweenTwoFloat(0, canvasHeight);
+            float x1 = Randomizer::RandomBetweenTwoFloat(0, canvasWidth);
+            float x2 = Randomizer::RandomBetweenTwoFloat(0, canvasWidth);
+
+            wallList.emplace_back(Vector2D(x1, y1), Vector2D(x2, y2));
+        }
     }
 }
 
@@ -25,6 +47,7 @@ void WallManager::deleteDeadWalls() {
 }
 
 void WallManager::Update() {
+    deleteDeadWalls();
     for (auto &wall : wallList){
         wall.Draw(*m_renderer);
     }

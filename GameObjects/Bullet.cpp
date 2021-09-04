@@ -31,16 +31,27 @@ bool Bullet::isDead(float time) const {
     return true;
 }
 
-void Bullet::collideWithWall(Wall &wall) {
-    if (wall.IsHit(pos, pos + dir * speed)) {
+void Bullet::collideWithWall(bool isHit) {
+    if (isHit)
+        dir = dir * -1;
+}
+
+void Bullet::collideWithWindowBorders(float width, float height) {
+    if ((pos.getX() >= width || pos.getX() <= 0)
+        ||(pos.getY() >= height || pos.getY() <= 0)) {
         dir = dir * -1;
     }
 }
 
-void Bullet::collideWithWindowBorders(float width, float height) {
-    if ((pos.getX() >= width || pos.getX() <= -width)
-        ||(pos.getY() >= height || pos.getY() <= -height)) {
-        dir = dir * -1;
-    }
+Vector2D Bullet::getPosition() {
+    return pos;
+}
+
+Vector2D Bullet::getDirection() {
+    return dir;
+}
+
+float Bullet::getSpeed() {
+    return speed;
 }
 
