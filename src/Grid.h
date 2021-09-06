@@ -7,6 +7,7 @@
 
 
 #include <vector>
+#include <functional>
 #include <list>
 #include <optional>
 #include <set>
@@ -23,15 +24,15 @@ public:
 
 private:
 
-    void locateLineInGrid(Vector2D point1, Vector2D point2, const std::function<void(int, int)> &innerFunc);
-    Vector2D getPointSector(Vector2D point) const;
+    void locateLineInGrid(Vector2D point1, Vector2D point2, const std::function<void(int, int)> &innerFunc) const;
+    static int swapCoordinates(int c1, int c2, int dir);
+    bool checkSectorLineCollision(int x, int y, Vector2D point1, Vector2D point2) const;
+    int getGridCoord(float coord, float gridSize, float sectorSize) const;
 
-    int gridSizeX;
-    int gridSizeY;
-    int canvasWidth;
-    int canvasHeight;
-    int sectorSizeX;
-    int sectorSizeY;
+    float gridSizeX;
+    float gridSizeY;
+    float sectorSizeX;
+    float sectorSizeY;
 
     std::vector<std::vector<std::set<std::shared_ptr<Wall>>>> wallGrid;
 };

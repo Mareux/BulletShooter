@@ -16,11 +16,8 @@ public:
     bool getDeathState() const;
     void setDeathState(bool isHit);
 
-
     Vector2D getPoint1();
     Vector2D getPoint2();
-
-    bool operator<(const Wall &wall);
 
 private:
 

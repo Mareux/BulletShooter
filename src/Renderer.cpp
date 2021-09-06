@@ -2,6 +2,7 @@
 // Created by Mariia Nosko on 27.08.2021.
 //
 
+#include <string>
 #include "Renderer.h"
 
 void Renderer::update() {
@@ -9,7 +10,7 @@ void Renderer::update() {
 }
 
 void Renderer::drawLine(Vector2D vec1, Vector2D vec2) {
-    SDL_SetRenderDrawColor( renderer, 0xFF, 0x00, 0x00, 0xFF );
+    SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 0xFF);
     SDL_RenderDrawLineF(renderer,
                         vec1.getX(),
                         vec1.getY(),
@@ -18,21 +19,15 @@ void Renderer::drawLine(Vector2D vec1, Vector2D vec2) {
 }
 
 void Renderer::drawPoint(Vector2D vec1) {
-    SDL_SetRenderDrawColor( renderer, 0x00, 0x00, 0xFF, 0xFF );
-    SDL_RenderDrawPointF(renderer,
-                         vec1.getX(),
-                         vec1.getY());
+    SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
+    SDL_FRect rect = {vec1.getX(), vec1.getY(), 2, 2};
+    SDL_RenderDrawRectF(renderer, &rect);
 
 }
 
 void Renderer::clearScreen() {
-    SDL_SetRenderDrawColor( renderer, 0xFF, 0xFF, 0xFF, 0xFF );
-    SDL_RenderClear( renderer );
-}
-
-void Renderer::drawRect(Vector2D vec1, Vector2D vec2) {
-    SDL_SetRenderDrawColor( renderer, 0x00, 0xFF, 0x00, 0xFF );
-    //TODO: draw rect
+    SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+    SDL_RenderClear(renderer);
 }
 
 float Renderer::getWindowWidth() const {
@@ -45,21 +40,40 @@ float Renderer::getWindowHeight() const {
 
 Renderer::Renderer() {
     SDL_Init(SDL_INIT_EVERYTHING);
-    SDL_GetDesktopDisplayMode(0, &displayMode);
-    windowWidth = (float)displayMode.w;
-    windowHeight = (float)displayMode.h;
-    halfWindowWidth = windowWidth / 2;
-    halfWindowHeight = windowHeight / 2;
+    TTF_Init();
 
-    window = SDL_CreateWindow("Window", 0, 0, displayMode.w, displayMode.h, SDL_WINDOW_SHOWN);
+    font = TTF_OpenFont("assets/ComicSans.TTF", 64);
+
+    SDL_GetDesktopDisplayMode(0, &displayMode);
+    windowWidth = 1920;
+    windowHeight = 1080;
+
+    window = SDL_CreateWindow("Window", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, (int) windowWidth,
+                              (int) windowHeight, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
     if (!window) {
         return;
     }
+    SDL_SetWindowBordered(window, SDL_TRUE);
+
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 }
 
 Renderer::~Renderer() {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
+    TTF_CloseFont(font);
+    TTF_Quit();
     SDL_Quit();
+}
+
+void Renderer::drawFps(int fps) {
+    std::string str = "FPS: " + std::to_string(fps);
+
+    SDL_Color color = {0, 0, 0};
+    SDL_Surface *surface = TTF_RenderText_Solid(font, str.c_str(), color);
+    SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_Rect rect = {0, 0, 50, 30};
+    SDL_RenderCopy(renderer, texture, nullptr, &rect);
+    SDL_DestroyTexture(texture);
+    SDL_FreeSurface(surface);
 }

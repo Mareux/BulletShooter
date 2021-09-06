@@ -3,14 +3,16 @@
 //
 
 #include "WallManager.h"
+
+#include <utility>
 #include "../Randomizer.h"
 
 void WallManager::createWalls(int wallsNum) {
-    float canvasWidth = m_renderer->getWindowWidth() - 1;
-    float canvasHeight = m_renderer->getWindowHeight() - 1;
+    float canvasWidth = m_renderer->getWindowWidth();
+    float canvasHeight = m_renderer->getWindowHeight();
 
     for (int i = 0; i < wallsNum; i++) {
-        int randomInt = std::rand() % 4 + 1;
+        int randomInt = std::rand() % 3 + 1;
         if (randomInt == 1) {
             float x = Randomizer::RandomBetweenTwoFloat(0, canvasWidth);
             float y1 = Randomizer::RandomBetweenTwoFloat(0, canvasHeight);
@@ -53,6 +55,6 @@ void WallManager::Update() {
     }
 }
 
-WallManager::WallManager(std::shared_ptr<Renderer> renderer) : m_renderer(renderer){
+WallManager::WallManager(std::shared_ptr<Renderer> renderer) : m_renderer(std::move(renderer)){
 
 }

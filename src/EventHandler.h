@@ -16,7 +16,8 @@ public:
 
     enum Event {
         QUIT = SDL_QUIT,
-        ON_MOUSE_DOWN = SDL_MOUSEBUTTONDOWN
+        ON_MOUSE_DOWN = SDL_MOUSEBUTTONDOWN,
+        QUIT_ESC = SDL_SCANCODE_ESCAPE
     };
 
     void AddEvent(Event event, const std::function<void()>& callback);

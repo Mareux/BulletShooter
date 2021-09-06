@@ -50,8 +50,3 @@ float Vector2D::getX() const {
 float Vector2D::getY() const {
     return y;
 }
-
-Vector2D::Vector2D(int x, int y) {
-    this->x = float(x);
-    this->y = float(y);
-}

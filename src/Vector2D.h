@@ -14,7 +14,6 @@ private:
 public:
     Vector2D() = default;
     Vector2D(float x, float y);
-    Vector2D(int x, int y);
     Vector2D operator+(const Vector2D& vec) const;
     Vector2D operator-(const Vector2D& vec) const;
     Vector2D operator*(const float &num) const;

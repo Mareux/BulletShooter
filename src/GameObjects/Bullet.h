@@ -21,7 +21,7 @@ public:
 
     Vector2D getPosition();
     Vector2D getDirection();
-    float getSpeed();
+    float getSpeed() const;
 
 
     ~Bullet() ;

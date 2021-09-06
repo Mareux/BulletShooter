@@ -3,11 +3,16 @@
 //
 
 #include <iostream>
+#include <utility>
 #include "BulletManager.h"
+#include "../thread_pool.h"
+
+thread_pool pool;
 
 void BulletManager::Update(float time) {
-    bulletMutex.lock();
-    std::cout << 1000 / (time - prevTime) << std::endl;
+    std::lock_guard<std::mutex> lockGuard(bulletMutex);
+
+    m_renderer->drawFps(1000 / (time - prevTime));
 
     prevTime = time;
     bulletList.remove_if([=](Bullet &bullet) {
@@ -15,28 +20,33 @@ void BulletManager::Update(float time) {
     });
 
     for (auto &bullet: bulletList) {
-        bullet.collideWithWall(m_grid->bulletInSectorCollided(bullet.getPosition(), bullet.getPosition() + bullet.getDirection() * bullet.getSpeed()));
-        bullet.Move();
+        pool.push_task([&]() {
+            auto isHit = m_grid->bulletInSectorCollided(bullet.getPosition(),
+                                                        bullet.getPosition() +
+                                                        bullet.getDirection() * bullet.getSpeed());
+            bullet.collideWithWall(isHit);
+            bullet.Move();
+        });
+    }
+
+    pool.wait_for_tasks();
+
+    for (auto &bullet: bulletList) {
         bullet.collideWithWindowBorders(m_renderer->getWindowWidth(), m_renderer->getWindowHeight());
         bullet.Draw(*m_renderer);
     }
 
-    bulletMutex.unlock();
 }
 
 void BulletManager::Fire(Vector2D pos, Vector2D dir, float speed, float time, float life_time) {
-    bulletMutex.lock();
+    std::lock_guard<std::mutex> lockGuard(bulletMutex);
     bulletList.emplace_back(pos, dir, speed, time, life_time);
-    bulletMutex.unlock();
 }
 
-BulletManager::BulletManager(const std::shared_ptr<Grid> &grid, const std::shared_ptr<Renderer> &renderer)
-        : m_grid(grid), m_renderer(renderer), prevTime(0) {
+BulletManager::BulletManager(std::shared_ptr<Grid> grid, std::shared_ptr<Renderer> renderer)
+        : m_grid(std::move(grid)), m_renderer(std::move(renderer)), prevTime(0) {
 
 }
 
-BulletManager::BulletManager() {
-
-}
 
 

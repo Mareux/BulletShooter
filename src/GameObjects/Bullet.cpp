@@ -8,9 +8,7 @@ void Bullet::Draw(Renderer &renderer) {
     renderer.drawPoint(pos);
 }
 
-Bullet::~Bullet() {
-
-}
+Bullet::~Bullet() = default;
 
 void Bullet::Move() {
     pos = pos + dir * speed;
@@ -51,7 +49,7 @@ Vector2D Bullet::getDirection() {
     return dir;
 }
 
-float Bullet::getSpeed() {
+float Bullet::getSpeed() const {
     return speed;
 }
 
