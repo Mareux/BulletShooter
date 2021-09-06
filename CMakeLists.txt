@@ -12,6 +12,6 @@ include_directories(${SDL2_INCLUDE_DIRS})
 include_directories(${SDL2_INCLUDE_DIR})
 link_directories(${SDL2_LIB_DIR})
 
-add_executable(BulletShooter main.cpp GameManagers/BulletManager.cpp GameManagers/BulletManager.h Vector2D.cpp Vector2D.h Renderer.cpp Renderer.h GameManagers/WallManager.cpp GameManagers/WallManager.h GameObjects/Figure.cpp GameObjects/Figure.h GameObjects/Bullet.cpp GameObjects/Bullet.h GameObjects/Wall.cpp GameObjects/Wall.h EventHandler.cpp EventHandler.h Randomizer.cpp Randomizer.h Grid.cpp Grid.h CollisionManager.cpp CollisionManager.h Sector.cpp Sector.h)
+add_executable(${PROJECT_NAME} src/main.cpp src/GameManagers/BulletManager.cpp src/GameManagers/BulletManager.h src/Vector2D.cpp src/Vector2D.h src/Renderer.cpp src/Renderer.h src/GameManagers/WallManager.cpp src/GameManagers/WallManager.h src/GameObjects/Figure.cpp src/GameObjects/Figure.h src/GameObjects/Bullet.cpp src/GameObjects/Bullet.h src/GameObjects/Wall.cpp src/GameObjects/Wall.h src/EventHandler.cpp src/EventHandler.h src/Randomizer.cpp src/Randomizer.h src/Grid.cpp src/Grid.h src/CollisionManager.cpp src/CollisionManager.h src/Sector.cpp src/Sector.h)
 
 target_link_libraries(BulletShooter ${SDL2_LIBRARIES})
