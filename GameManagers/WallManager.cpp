@@ -16,14 +16,14 @@ void WallManager::createWalls(int wallsNum) {
             float y1 = Randomizer::RandomBetweenTwoFloat(0, canvasHeight);
             float y2 = Randomizer::RandomBetweenTwoFloat(0, canvasHeight);
 
-            wallList.emplace_back(Vector2D(x, y1), Vector2D(x, y2));
+            wallList.emplace_back(std::make_shared<Wall>(Vector2D(x, y1), Vector2D(x, y2)));
         }
         else if (randomInt == 2) {
             float y = Randomizer::RandomBetweenTwoFloat(0, canvasHeight);
             float x1 = Randomizer::RandomBetweenTwoFloat(0, canvasWidth);
             float x2 = Randomizer::RandomBetweenTwoFloat(0, canvasWidth);
 
-            wallList.emplace_back(Vector2D(x1, y), Vector2D(x2, y));
+            wallList.emplace_back(std::make_shared<Wall>(Vector2D(x1, y), Vector2D(x2, y)));
         }
         else {
             float y1 = Randomizer::RandomBetweenTwoFloat(0, canvasHeight);
@@ -31,25 +31,25 @@ void WallManager::createWalls(int wallsNum) {
             float x1 = Randomizer::RandomBetweenTwoFloat(0, canvasWidth);
             float x2 = Randomizer::RandomBetweenTwoFloat(0, canvasWidth);
 
-            wallList.emplace_back(Vector2D(x1, y1), Vector2D(x2, y2));
+            wallList.emplace_back(std::make_shared<Wall>(Vector2D(x1, y1), Vector2D(x2, y2)));
         }
     }
 }
 
-std::list<Wall>& WallManager::getWallList() {
+std::list<std::shared_ptr<Wall>>& WallManager::getWallList() {
     return wallList;
 }
 
 void WallManager::deleteDeadWalls() {
-    wallList.remove_if([=](Wall &wall) {
-        return wall.getDeathState();
+    wallList.remove_if([=](std::shared_ptr<Wall> &wall) {
+        return wall->getDeathState();
     });
 }
 
 void WallManager::Update() {
     deleteDeadWalls();
     for (auto &wall : wallList){
-        wall.Draw(*m_renderer);
+        wall->Draw(*m_renderer);
     }
 }
 

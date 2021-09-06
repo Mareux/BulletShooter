@@ -13,7 +13,7 @@ int main() {
     auto renderer = std::make_shared<Renderer>();
 
     auto wallManager = std::make_shared<WallManager>(renderer);
-    auto grid = std::make_shared<Grid>(4,4, renderer->getWindowWidth(), renderer->getWindowHeight());
+    auto grid = std::make_shared<Grid>(2,2, renderer->getWindowWidth(), renderer->getWindowHeight());
 
     wallManager->createWalls(1000);
     grid->LocateWallsInGrid(wallManager->getWallList());
@@ -37,6 +37,7 @@ int main() {
         eventHandler->HandleEvents();
 
         bulletManager->Update(SDL_GetTicks());
+        grid->DeleteWallsInGrid(wallManager->getWallList());
         wallManager->Update();
         renderer->update();
     }

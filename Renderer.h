@@ -6,9 +6,10 @@
 #define BULLETSHOOTER_RENDERER_H
 
 #include <memory>
-#include "SDL.h"
+#include <SDL.h>
 #include "Vector2D.h"
 
+//#include <SDL_ttf.h>
 class Renderer {
 public:
     Renderer();
