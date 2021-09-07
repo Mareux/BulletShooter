@@ -20,9 +20,11 @@ public:
         QUIT_ESC = SDL_SCANCODE_ESCAPE
     };
 
-    void AddEvent(Event event, const std::function<void()>& callback);
+    void AddEvent(Event event, const std::function<void()> &callback);
+
     void HandleEvents();
-    static Vector2D getMousePos();
+
+    static Vector2D GetMousePos();
 
 private:
     std::map<Event, std::function<void()>> eventMap;

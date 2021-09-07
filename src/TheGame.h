@@ -18,7 +18,9 @@ class TheGame {
 public:
 
     TheGame(int wallsNum, int bulletNum);
+
     ~TheGame() = default;
+
     void RunTheGame();
 
 private:

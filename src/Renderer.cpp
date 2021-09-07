@@ -5,36 +5,36 @@
 #include <string>
 #include "Renderer.h"
 
-void Renderer::update() {
+void Renderer::Update() {
     SDL_RenderPresent(renderer);
 }
 
-void Renderer::drawLine(Vector2D vec1, Vector2D vec2) {
+void Renderer::DrawLine(Vector2D vec1, Vector2D vec2) {
     SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 0xFF);
     SDL_RenderDrawLineF(renderer,
-                        vec1.getX(),
-                        vec1.getY(),
-                        vec2.getX(),
-                        vec2.getY());
+                        vec1.GetX(),
+                        vec1.GetY(),
+                        vec2.GetX(),
+                        vec2.GetY());
 }
 
-void Renderer::drawPoint(Vector2D vec1) {
+void Renderer::DrawPoint(Vector2D vec1) {
     SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
-    SDL_FRect rect = {vec1.getX(), vec1.getY(), 2, 2};
+    SDL_FRect rect = {vec1.GetX(), vec1.GetY(), 2, 2};
     SDL_RenderDrawRectF(renderer, &rect);
 
 }
 
-void Renderer::clearScreen() {
+void Renderer::ClearScreen() {
     SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
     SDL_RenderClear(renderer);
 }
 
-float Renderer::getWindowWidth() const {
+float Renderer::GetWindowWidth() const {
     return windowWidth;
 }
 
-float Renderer::getWindowHeight() const {
+float Renderer::GetWindowHeight() const {
     return windowHeight;
 }
 
@@ -66,7 +66,7 @@ Renderer::~Renderer() {
     SDL_Quit();
 }
 
-void Renderer::drawFps(int fps) {
+void Renderer::DrawFps(int fps) {
     std::string str = "FPS: " + std::to_string(fps);
 
     SDL_Color color = {0, 0, 0};

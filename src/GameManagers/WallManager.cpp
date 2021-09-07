@@ -4,12 +4,13 @@
 
 #include "WallManager.h"
 
+#include <random>
 #include <utility>
 #include "../Randomizer.h"
 
-void WallManager::createWalls(int wallsNum) {
-    float canvasWidth = m_renderer->getWindowWidth();
-    float canvasHeight = m_renderer->getWindowHeight();
+void WallManager::CreateWalls(int wallsNum) {
+    float canvasWidth = renderer->GetWindowWidth();
+    float canvasHeight = renderer->GetWindowHeight();
 
     for (int i = 0; i < wallsNum; i++) {
         int randomInt = std::rand() % 3 + 1;
@@ -19,15 +20,13 @@ void WallManager::createWalls(int wallsNum) {
             float y2 = Randomizer::RandomBetweenTwoFloat(0, canvasHeight);
 
             wallList.emplace_back(std::make_shared<Wall>(Vector2D(x, y1), Vector2D(x, y2)));
-        }
-        else if (randomInt == 2) {
+        } else if (randomInt == 2) {
             float y = Randomizer::RandomBetweenTwoFloat(0, canvasHeight);
             float x1 = Randomizer::RandomBetweenTwoFloat(0, canvasWidth);
             float x2 = Randomizer::RandomBetweenTwoFloat(0, canvasWidth);
 
             wallList.emplace_back(std::make_shared<Wall>(Vector2D(x1, y), Vector2D(x2, y)));
-        }
-        else {
+        } else {
             float y1 = Randomizer::RandomBetweenTwoFloat(0, canvasHeight);
             float y2 = Randomizer::RandomBetweenTwoFloat(0, canvasHeight);
             float x1 = Randomizer::RandomBetweenTwoFloat(0, canvasWidth);
@@ -38,23 +37,23 @@ void WallManager::createWalls(int wallsNum) {
     }
 }
 
-std::list<std::shared_ptr<Wall>>& WallManager::getWallList() {
+std::list<std::shared_ptr<Wall>> &WallManager::GetWallList() {
     return wallList;
 }
 
-void WallManager::deleteDeadWalls() {
+void WallManager::RemoveKilledWalls() {
     wallList.remove_if([=](std::shared_ptr<Wall> &wall) {
-        return wall->getDeathState();
+        return wall->GetDeathState();
     });
 }
 
 void WallManager::Update() {
-    deleteDeadWalls();
-    for (auto &wall : wallList){
-        wall->Draw(*m_renderer);
+    RemoveKilledWalls();
+    for (auto &wall: wallList) {
+        wall->Draw(*renderer);
     }
 }
 
-WallManager::WallManager(std::shared_ptr<Renderer> renderer) : m_renderer(std::move(renderer)){
+WallManager::WallManager(std::shared_ptr<Renderer> renderer) : renderer(std::move(renderer)) {
 
 }

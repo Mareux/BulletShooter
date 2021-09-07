@@ -21,7 +21,7 @@ link_directories(${SDL2_LIBRARY})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/SDL2_ttf-2.0.15/include)
 link_directories(${SDL2_TTF_LIBRARY})
 
-add_executable(${PROJECT_NAME} src/main.cpp src/GameManagers/BulletManager.cpp src/GameManagers/BulletManager.h src/Vector2D.cpp src/Vector2D.h src/Renderer.cpp src/Renderer.h src/GameManagers/WallManager.cpp src/GameManagers/WallManager.h src/GameObjects/Bullet.cpp src/GameObjects/Bullet.h src/GameObjects/Wall.cpp src/GameObjects/Wall.h src/EventHandler.cpp src/EventHandler.h src/Randomizer.cpp src/Randomizer.h src/Grid.cpp src/Grid.h src/CollisionManager.cpp src/CollisionManager.h src/thread_pool.h src/TheGame.cpp src/TheGame.h)
+add_executable(${PROJECT_NAME} src/main.cpp src/GameManagers/BulletManager.cpp src/GameManagers/BulletManager.h src/Vector2D.cpp src/Vector2D.h src/Renderer.cpp src/Renderer.h src/GameManagers/WallManager.cpp src/GameManagers/WallManager.h src/GameObjects/Bullet.cpp src/GameObjects/Bullet.h src/GameObjects/Wall.cpp src/GameObjects/Wall.h src/EventHandler.cpp src/EventHandler.h src/Randomizer.cpp src/Randomizer.h src/Grid.cpp src/Grid.h src/CollisionManager.cpp src/CollisionManager.h src/ThirdParty/thread_pool.h src/TheGame.cpp src/TheGame.h)
 
 target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARY} ${SDL2_TTF_LIBRARY})
 

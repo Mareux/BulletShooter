@@ -8,16 +8,21 @@
 
 #include "../Renderer.h"
 
-class Wall  {
+class Wall {
 public:
     Wall(Vector2D point1, Vector2D point2);
-    ~Wall() ;
-    void Draw(Renderer &renderer) ;
-    bool getDeathState() const;
-    void setDeathState(bool isHit);
 
-    Vector2D getPoint1();
-    Vector2D getPoint2();
+    ~Wall();
+
+    void Draw(Renderer &renderer);
+
+    bool GetDeathState() const;
+
+    void KillWall();
+
+    Vector2D GetPoint1();
+
+    Vector2D GetPoint2();
 
 private:
 

@@ -8,20 +8,23 @@
 
 class Vector2D {
 private:
-        float x;
-        float y;
+    float x;
+    float y;
 
 public:
     Vector2D() = default;
-    Vector2D(float x, float y);
-    Vector2D operator+(const Vector2D& vec) const;
-    Vector2D operator-(const Vector2D& vec) const;
-    Vector2D operator*(const float &num) const;
-    float vectorLength() const;
-    Vector2D normalize() const;
 
-    float getX() const;
-    float getY() const;
+    Vector2D(float x, float y);
+
+    Vector2D operator+(const Vector2D &vec) const;
+
+    Vector2D operator-(const Vector2D &vec) const;
+
+    Vector2D operator*(const float &num) const;
+
+    float GetX() const;
+
+    float GetY() const;
 
 };
 

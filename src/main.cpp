@@ -14,8 +14,7 @@ int main(int argc, char *argv[]) {
             bulletNum = atoi(argv[2]);
     }
 
-    std::unique_ptr<TheGame> theGame = std::make_unique<TheGame>(wallsNum, bulletNum);
-    theGame->RunTheGame();
+    std::make_unique<TheGame>(wallsNum, bulletNum)->RunTheGame();
 
     return 0;
 }

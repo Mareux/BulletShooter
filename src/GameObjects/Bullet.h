@@ -9,22 +9,29 @@
 #include "../Renderer.h"
 #include "Wall.h"
 
-class Bullet{
+class Bullet {
 public:
     Bullet(Vector2D pos, Vector2D dir, float speed, float spawnTime, float lifetime);
-    void Draw(Renderer &renderer) ;
+
+    void Draw(Renderer &renderer);
+
     void Move();
-    bool isDead(float time) const;
-    void collideWithWall(bool isHit);
-    void collideWithWindowBorders(float width, float height);
+
+    bool IsDead(float time) const;
+
+    void CollideWithWall();
+
+    void CollideWithWindowBorders(float width, float height);
 
 
-    Vector2D getPosition();
-    Vector2D getDirection();
-    float getSpeed() const;
+    Vector2D GetPosition();
+
+    Vector2D GetDirection();
+
+    float GetSpeed() const;
 
 
-    ~Bullet() ;
+    ~Bullet();
 
 private:
     Vector2D pos{};

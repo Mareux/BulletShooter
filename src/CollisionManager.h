@@ -12,6 +12,7 @@ class CollisionManager {
 public:
 
     static bool LineLineCollision(Vector2D point1, Vector2D point2, Vector2D point3, Vector2D point4);
+
     static bool LineRectCollision(Vector2D point1, Vector2D point2, Vector2D point3, Vector2D point4);
 };
 

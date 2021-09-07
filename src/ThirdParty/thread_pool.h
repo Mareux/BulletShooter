@@ -8,8 +8,8 @@
  * @copyright Copyright (c) 2021 Barak Shoshany. Licensed under the MIT license. If you use this library in published research, please cite it as follows:
  *  - Barak Shoshany, "A C++17 Thread Pool for High-Performance Scientific Computing", doi:10.5281/zenodo.4742687, arXiv:2105.00613 (May 2021)
  *
- * @brief A C++17 thread pool for high-performance scientific computing.
- * @details A modern C++17-compatible thread pool implementation, built from scratch with high-performance scientific computing in mind. The thread pool is implemented as a single lightweight and self-contained class, and does not have any dependencies other than the C++17 standard library, thus allowing a great degree of portability. In particular, this implementation does not utilize OpenMP or any other high-level multithreading APIs, and thus gives the programmer precise low-level control over the details of the parallelization, which permits more robust optimizations. The thread pool was extensively tested on both AMD and Intel CPUs with up to 40 cores and 80 threads. Other features include automatic generation of futures and easy parallelization of loops. Two helper classes enable synchronizing printing to an output stream by different threads and measuring execution time for benchmarking purposes. Please visit the GitHub repository at https://github.com/bshoshany/thread-pool for documentation and updates, or to submit feature requests and bug reports.
+ * @brief A C++17 thread collisions_pool for high-performance scientific computing.
+ * @details A modern C++17-compatible thread collisions_pool implementation, built from scratch with high-performance scientific computing in mind. The thread collisions_pool is implemented as a single lightweight and self-contained class, and does not have any dependencies other than the C++17 standard library, thus allowing a great degree of portability. In particular, this implementation does not utilize OpenMP or any other high-level multithreading APIs, and thus gives the programmer precise low-level control over the details of the parallelization, which permits more robust optimizations. The thread collisions_pool was extensively tested on both AMD and Intel CPUs with up to 40 cores and 80 threads. Other features include automatic generation of futures and easy parallelization of loops. Two helper classes enable synchronizing printing to an output stream by different threads and measuring execution time for benchmarking purposes. Please visit the GitHub repository at https://github.com/bshoshany/thread-collisions_pool for documentation and updates, or to submit feature requests and bug reports.
  */
 
 #define THREAD_POOL_VERSION "v2.0.0 (2021-08-14)"
@@ -31,7 +31,7 @@
 //                                    Begin class thread_pool                                    //
 
 /**
- * @brief A C++17 thread pool class. The user submits tasks to be executed into a queue. Whenever a thread becomes available, it pops a task from the queue and executes it. Each task is automatically assigned a future, which can be used to wait for the task to finish executing and/or obtain its eventual return value.
+ * @brief A C++17 thread collisions_pool class. The user submits tasks to be executed into a queue. Whenever a thread becomes available, it pops a task from the queue and executes it. Each task is automatically assigned a future, which can be used to wait for the task to finish executing and/or obtain its eventual return value.
  */
 class thread_pool
 {
@@ -44,7 +44,7 @@ public:
     // ============================
 
     /**
-     * @brief Construct a new thread pool.
+     * @brief Construct a new thread collisions_pool.
      *
      * @param _thread_count The number of threads to use. The default value is the total number of hardware threads available, as reported by the implementation. With a hyperthreaded CPU, this will be twice the number of CPU cores. If the argument is zero, the default value will be used instead.
      */
@@ -55,7 +55,7 @@ public:
     }
 
     /**
-     * @brief Destruct the thread pool. Waits for all tasks to complete, then destroys all threads. Note that if the variable paused is set to true, then any tasks still in the queue will never be executed.
+     * @brief Destruct the thread collisions_pool. Waits for all tasks to complete, then destroys all threads. Note that if the variable paused is set to true, then any tasks still in the queue will never be executed.
      */
     ~thread_pool()
     {
@@ -100,7 +100,7 @@ public:
     }
 
     /**
-     * @brief Get the number of threads in the pool.
+     * @brief Get the number of threads in the collisions_pool.
      *
      * @return The number of threads.
      */
@@ -110,7 +110,7 @@ public:
     }
 
     /**
-     * @brief Parallelize a loop by splitting it into blocks, submitting each block separately to the thread pool, and waiting for all blocks to finish executing. The user supplies a loop function, which will be called once per block and should iterate over the block's range.
+     * @brief Parallelize a loop by splitting it into blocks, submitting each block separately to the thread collisions_pool, and waiting for all blocks to finish executing. The user supplies a loop function, which will be called once per block and should iterate over the block's range.
      *
      * @tparam T1 The type of the first index in the loop. Should be a signed or unsigned integer.
      * @tparam T2 The type of the index after the last index in the loop. Should be a signed or unsigned integer. If T1 is not the same as T2, a common type will be automatically inferred.
@@ -118,7 +118,7 @@ public:
      * @param first_index The first index in the loop.
      * @param index_after_last The index after the last index in the loop. The loop will iterate from first_index to (index_after_last - 1) inclusive. In other words, it will be equivalent to "for (T i = first_index; i < index_after_last; i++)". Note that if first_index == index_after_last, the function will terminate without doing anything.
      * @param loop The function to loop through. Will be called once per block. Should take exactly two arguments: the first index in the block and the index after the last index in the block. loop(start, end) should typically involve a loop of the form "for (T i = start; i < end; i++)".
-     * @param num_blocks The maximum number of blocks to split the loop into. The default is to use the number of threads in the pool.
+     * @param num_blocks The maximum number of blocks to split the loop into. The default is to use the number of threads in the collisions_pool.
      */
     template <typename T1, typename T2, typename F>
     void parallelize_loop(const T1 &first_index, const T2 &index_after_last, const F &loop, ui32 num_blocks = 0)
@@ -195,7 +195,7 @@ public:
     }
 
     /**
-     * @brief Reset the number of threads in the pool. Waits for all currently running tasks to be completed, then destroys all threads in the pool and creates a new thread pool with the new number of threads. Any tasks that were waiting in the queue before the pool was reset will then be executed by the new threads. If the pool was paused before resetting it, the new pool will be paused as well.
+     * @brief Reset the number of threads in the collisions_pool. Waits for all currently running tasks to be completed, then destroys all threads in the collisions_pool and creates a new thread collisions_pool with the new number of threads. Any tasks that were waiting in the queue before the collisions_pool was reset will then be executed by the new threads. If the collisions_pool was paused before resetting it, the new collisions_pool will be paused as well.
      *
      * @param _thread_count The number of threads to use. The default value is the total number of hardware threads available, as reported by the implementation. With a hyperthreaded CPU, this will be twice the number of CPU cores. If the argument is zero, the default value will be used instead.
      */
@@ -324,7 +324,7 @@ private:
     // ========================
 
     /**
-     * @brief Create the threads in the pool and assign a worker to each thread.
+     * @brief Create the threads in the collisions_pool and assign a worker to each thread.
      */
     void create_threads()
     {
@@ -335,7 +335,7 @@ private:
     }
 
     /**
-     * @brief Destroy the threads in the pool by joining them.
+     * @brief Destroy the threads in the collisions_pool by joining them.
      */
     void destroy_threads()
     {
@@ -377,7 +377,7 @@ private:
     }
 
     /**
-     * @brief A worker function to be assigned to each thread in the pool. Continuously pops tasks out of the queue and executes them, as long as the atomic variable running is set to true.
+     * @brief A worker function to be assigned to each thread in the collisions_pool. Continuously pops tasks out of the queue and executes them, as long as the atomic variable running is set to true.
      */
     void worker()
     {
@@ -416,7 +416,7 @@ private:
     std::queue<std::function<void()>> tasks = {};
 
     /**
-     * @brief The number of threads in the pool.
+     * @brief The number of threads in the collisions_pool.
      */
     ui32 thread_count;
 

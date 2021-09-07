@@ -12,9 +12,6 @@
 #include "../GameObjects/Bullet.h"
 #include "../Grid.h"
 
-const int FRAMES_PER_SECOND = 120;
-const int FRAME_CONTROL = (1000 / FRAMES_PER_SECOND);
-
 class BulletManager {
 public:
 
@@ -29,8 +26,8 @@ private:
     std::mutex bulletMutex;
     std::list<Bullet> bulletList;
 
-    std::shared_ptr<Grid> m_grid;
-    std::shared_ptr<Renderer> m_renderer;
+    std::shared_ptr<Grid> grid;
+    std::shared_ptr<Renderer> renderer;
 
     float prevTime;
 };

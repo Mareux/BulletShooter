@@ -9,28 +9,28 @@ TheGame::TheGame(int wallsNum, int bulletNum) : bulletNum(bulletNum), running(tr
     renderer = std::make_shared<Renderer>();
 
     wallManager = std::make_shared<WallManager>(renderer);
-    grid = std::make_shared<Grid>(20,20, renderer->getWindowWidth(), renderer->getWindowHeight());
+    grid = std::make_shared<Grid>(20, 20, renderer->GetWindowWidth(), renderer->GetWindowHeight());
 
-    wallManager->createWalls(wallsNum);
-    grid->LocateWallsInGrid(wallManager->getWallList());
+    wallManager->CreateWalls(wallsNum);
+    grid->LocateWallsInGrid(wallManager->GetWallList());
 
     bulletManager = std::make_unique<BulletManager>(grid, renderer);
     eventHandler = std::make_unique<EventHandler>();
 
-    auto handler = [this](){
+    auto handler = [this]() {
         running = false;
     };
 
     eventHandler->AddEvent(EventHandler::QUIT, handler);
     eventHandler->AddEvent(EventHandler::QUIT_ESC, handler);
     eventHandler->AddEvent(EventHandler::ON_MOUSE_DOWN, [&]() {
-        Vector2D pos = EventHandler::getMousePos();
+        Vector2D pos = EventHandler::GetMousePos();
         FireBullets(bulletManager, pos);
     });
 }
 
 void TheGame::FireBullets(std::unique_ptr<BulletManager> &bulletManager, Vector2D &pos) {
-    std::thread([=,&bulletManager]() {
+    std::thread([=, &bulletManager]() {
         for (int i = 0; i < bulletNum; i++) {
             Vector2D dir = {Randomizer::RandomBetweenTwoFloat(-2, 1), Randomizer::RandomBetweenTwoFloat(-2, 1)};
             auto speed = Randomizer::RandomBetweenTwoFloat(1, 3);
@@ -47,12 +47,12 @@ void TheGame::FireBullets(std::unique_ptr<BulletManager> &bulletManager, Vector2
 
 void TheGame::RunTheGame() {
     while (running) {
-        renderer->clearScreen();
+        renderer->ClearScreen();
         eventHandler->HandleEvents();
         bulletManager->Update(SDL_GetTicks());
-        grid->DeleteWallsInGrid(wallManager->getWallList());
+        grid->RemoveKilledWalls(wallManager->GetWallList());
         wallManager->Update();
-        renderer->update();
+        renderer->Update();
     }
 }
 

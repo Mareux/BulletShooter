@@ -11,16 +11,19 @@
 
 class WallManager {
 public:
-    void createWalls(int wallsNum);
-    std::list<std::shared_ptr<Wall>>& getWallList();
-    void deleteDeadWalls();
+    std::list<std::shared_ptr<Wall>> &GetWallList();
+
+    void CreateWalls(int wallsNum);
+
     void Update();
 
     WallManager(std::shared_ptr<Renderer> renderer);
 
 private:
     std::list<std::shared_ptr<Wall>> wallList;
-    std::shared_ptr<Renderer> m_renderer;
+    std::shared_ptr<Renderer> renderer;
+
+    void RemoveKilledWalls();
 };
 
 

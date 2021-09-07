@@ -1,0 +1,1 @@
+BulletShooter.exe 10000 10000

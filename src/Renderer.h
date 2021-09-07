@@ -10,25 +10,34 @@
 #include <SDL_ttf.h>
 
 #undef main
+
 #include "Vector2D.h"
 
 class Renderer {
 public:
     Renderer();
+
     ~Renderer();
-    void update();
-    void clearScreen();
-    void drawLine(Vector2D vec1, Vector2D vec2);
-    void drawFps(int fps);
-    void drawPoint(Vector2D vec1);
-    float getWindowWidth() const;
-    float getWindowHeight() const;
+
+    void Update();
+
+    void ClearScreen();
+
+    void DrawLine(Vector2D vec1, Vector2D vec2);
+
+    void DrawFps(int fps);
+
+    void DrawPoint(Vector2D vec1);
+
+    float GetWindowWidth() const;
+
+    float GetWindowHeight() const;
 
 private:
     SDL_DisplayMode displayMode{};
-    SDL_Window* window;
-    SDL_Renderer* renderer;
-    TTF_Font * font;
+    SDL_Window *window;
+    SDL_Renderer *renderer;
+    TTF_Font *font;
     float windowWidth;
     float windowHeight;
 };

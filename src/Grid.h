@@ -17,17 +17,23 @@ class Grid {
 public:
 
     Grid(int x, int y, int canvasWidth, int canvasHeight);
+
     void LocateWallsInGrid(std::list<std::shared_ptr<Wall>> &walls);
-    void DeleteWallsInGrid(std::list<std::shared_ptr<Wall>> &walls);
-    bool bulletInSectorCollided(Vector2D point1, Vector2D point2);
+
+    void RemoveKilledWalls(std::list<std::shared_ptr<Wall>> &walls);
+
+    bool CollidesWithWallInSector(Vector2D point1, Vector2D point2);
 
 
 private:
 
-    void locateLineInGrid(Vector2D point1, Vector2D point2, const std::function<void(int, int)> &innerFunc) const;
-    static int swapCoordinates(int c1, int c2, int dir);
-    bool checkSectorLineCollision(int x, int y, Vector2D point1, Vector2D point2) const;
-    int getGridCoord(float coord, float gridSize, float sectorSize) const;
+    void LocateLineInGrid(Vector2D point1, Vector2D point2, const std::function<void(int, int)> &innerFunc) const;
+
+    static int SwapCoords(int c1, int c2, int dir);
+
+    bool CheckSectorLineCollision(int x, int y, Vector2D point1, Vector2D point2) const;
+
+    int GetGridCoord(float coord, float gridSize, float sectorSize) const;
 
     float gridSizeX;
     float gridSizeY;

@@ -8,26 +8,23 @@
 Wall::~Wall() = default;
 
 void Wall::Draw(Renderer &renderer) {
-    renderer.drawLine(point1, point2);
+    renderer.DrawLine(point1, point2);
 }
 
-Wall::Wall(Vector2D point1, Vector2D point2) : point1(point1), point2(point2), isDead(false){
-   /* std::cout << "Wall with point1(" << point1.getX() << ", " << point1.getY() << ") and point2("
-        << point2.getX() << ", " << point2.getY() << ") created\n";*/
-}
+Wall::Wall(Vector2D point1, Vector2D point2) : point1(point1), point2(point2), isDead(false) {}
 
-bool Wall::getDeathState() const {
+bool Wall::GetDeathState() const {
     return isDead;
 }
 
-Vector2D Wall::getPoint1() {
+Vector2D Wall::GetPoint1() {
     return point1;
 }
 
-Vector2D Wall::getPoint2() {
+Vector2D Wall::GetPoint2() {
     return point2;
 }
 
-void Wall::setDeathState(bool isHit) {
-    isDead = isHit;
+void Wall::KillWall() {
+    isDead = true;
 }
