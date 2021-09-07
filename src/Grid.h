@@ -22,7 +22,7 @@ public:
 
     void RemoveKilledWalls(std::list<std::shared_ptr<Wall>> &walls);
 
-    bool CollidesWithWallInSector(Vector2D point1, Vector2D point2);
+    std::shared_ptr<Wall> CollidesWithWallInSector(Vector2D point1, Vector2D point2);
 
 
 private:

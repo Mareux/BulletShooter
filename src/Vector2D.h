@@ -26,6 +26,11 @@ public:
 
     float GetY() const;
 
+    float VectorLength() const;
+
+    Vector2D Normalize() const;
+
+    float DotProduct(Vector2D vector) const;
 };
 
 

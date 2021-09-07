@@ -37,7 +37,7 @@ void TheGame::FireBullets(std::unique_ptr<BulletManager> &bulletManager, Vector2
             auto time1 = (float) SDL_GetTicks();
 
             bulletManager->Fire(pos,
-                                dir,
+                                dir.Normalize(),
                                 speed,
                                 time1,
                                 10000);

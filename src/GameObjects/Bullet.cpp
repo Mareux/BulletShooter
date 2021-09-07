@@ -25,15 +25,27 @@ bool Bullet::IsDead(float time) const {
     return true;
 }
 
-void Bullet::CollideWithWall() {
-    dir = dir * -1;
+void Bullet::CollideWithWall(const std::shared_ptr<Wall> &wall) {
+    Vector2D normal = (wall->GetPoint1() - wall->GetPoint2()).Normalize() * -1;
+
+    dir = normal * (dir.DotProduct(normal)  * 2) - dir;
 }
 
 void Bullet::CollideWithWindowBorders(float width, float height) {
-    if ((pos.GetX() >= width || pos.GetX() <= 0)
-        || (pos.GetY() >= height || pos.GetY() <= 0)) {
-        dir = dir * -1;
+    Vector2D normal{};
+    if (pos.GetX() >= width) {
+        normal = (Vector2D{width, 0} - Vector2D{width, height}).Normalize() * -1;
+    } else if (pos.GetX() <= 0) {
+        normal = (Vector2D{0, 0} - Vector2D{0, height}).Normalize() * -1;
+    } else if (pos.GetY() >= height) {
+        normal = (Vector2D{0, height} - Vector2D{width, height}).Normalize() * -1;
+    } else if (pos.GetY() <= 0) {
+        normal = (Vector2D{0, 0} - Vector2D{width, 0}).Normalize() * -1;
+    } else {
+        return;
     }
+
+    dir = normal * (dir.DotProduct(normal)  * 2) - dir;
 }
 
 Vector2D Bullet::GetPosition() {

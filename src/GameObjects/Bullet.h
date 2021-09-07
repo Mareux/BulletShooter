@@ -19,10 +19,9 @@ public:
 
     bool IsDead(float time) const;
 
-    void CollideWithWall();
+    void CollideWithWall(const std::shared_ptr<Wall> &wall);
 
     void CollideWithWindowBorders(float width, float height);
-
 
     Vector2D GetPosition();
 

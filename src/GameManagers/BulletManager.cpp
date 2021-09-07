@@ -22,10 +22,11 @@ void BulletManager::Update(float time) {
     // Calculate collisions in parallel
     for (auto &bullet: bulletList) {
         collisions_pool.push_task([&]() {
-            if (grid->CollidesWithWallInSector(bullet.GetPosition(),
-                                               bullet.GetPosition() +
-                                               bullet.GetDirection() * bullet.GetSpeed())) {
-                bullet.CollideWithWall();
+            auto wall = grid->CollidesWithWallInSector(bullet.GetPosition(),
+                                                  bullet.GetPosition() +
+                                                  bullet.GetDirection() * bullet.GetSpeed());
+            if (wall) {
+                bullet.CollideWithWall(wall);
             }
         });
     }

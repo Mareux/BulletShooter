@@ -28,14 +28,14 @@ void Grid::LocateWallsInGrid(std::list<std::shared_ptr<Wall>> &walls) {
     }
 }
 
-bool Grid::CollidesWithWallInSector(Vector2D point1, Vector2D point2) {
-    int wallWasKilled = false;
+std::shared_ptr<Wall> Grid::CollidesWithWallInSector(Vector2D point1, Vector2D point2) {
+    std::shared_ptr<Wall> wallWasKilled = nullptr;
 
     LocateLineInGrid(point1, point2, [&](int x, int y) {
         for (auto &wall: wallGrid[x][y]) {
             if (CollisionManager::LineLineCollision(wall->GetPoint1(), wall->GetPoint2(), point1, point2)) {
                 wall->KillWall();
-                wallWasKilled = true;
+                wallWasKilled = wall;
                 return;
             }
         }

@@ -32,10 +32,26 @@ Vector2D Vector2D::operator*(const float &num) const {
     return Vector2D({this->x * num, this->y * num});
 }
 
+float Vector2D::VectorLength() const {
+    return sqrt(x * x + y * y);
+}
+
+Vector2D Vector2D::Normalize() const {
+    auto currentLen = VectorLength();
+
+    return Vector2D{ x / currentLen,
+                     y / currentLen};;
+}
+
+
 float Vector2D::GetX() const {
     return x;
 }
 
 float Vector2D::GetY() const {
     return y;
+}
+
+float Vector2D::DotProduct(Vector2D vector) const {
+    return x * vector.x + y * vector.y;
 }
